@@ -12,6 +12,8 @@ import 'package:isolated_flutter/model/photo_model.dart';
 import 'package:isolated_flutter/widget/list_photo.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
+import 'isolate_read_file/image_screen.dart';
+
 const JSON_1MB_PATH = "assets/jsons/json_1_mb.json";
 const JSON_5MB_PATH = "assets/jsons/json_5_mb.json";
 
@@ -113,19 +115,17 @@ class _ImageListWidgetState extends State<ImageListWidget> {
                 ),
                 InkWell(
                   onTap: () async {
-                    final jsonString = await rootBundle.loadString(JSON_5MB_PATH);
-                    final parsedData = await parseJsonInBackground(jsonString);
-
-                    setState(() {
-                      filmModels = parsedData;
-                    });
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const ImageScreen()),
+                    );
                   },
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     color: Colors.brown,
                     alignment: Alignment.center,
                     child: Text(
-                      "Spawn",
+                      "Isolate",
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.white),
                     ),
                   ),
